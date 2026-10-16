@@ -1,0 +1,25 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>
+:root{--bg:#191919;--fg:#d4d4d4}
+@media (prefers-color-scheme: light){:root{--bg:#fff;--fg:#37352f}}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{display:flex;align-items:center;justify-content:center}
+svg{width:min(90vw,90vh,220px);height:auto}
+</style></head><body><svg viewBox="-100 -100 200 200" id="c"></svg>
+<script>
+const s=document.getElementById('c'),ns='http://www.w3.org/2000/svg';
+const el=(t,a)=>{const e=document.createElementNS(ns,t);for(const k in a)e.setAttribute(k,a[k]);s.appendChild(e);return e};
+for(let i=0;i<60;i++){const a=i*Math.PI/30,r=i%5?88:82;el('line',{x1:Math.sin(a)*r,y1:-Math.cos(a)*r,x2:Math.sin(a)*92,y2:-Math.cos(a)*92,stroke:'currentColor','stroke-width':i%5?.6:1.6,opacity:i%5?.35:.9})}
+const t=el('text',{y:34,'text-anchor':'middle','font-size':11,fill:'currentColor'}),
+d=el('text',{y:47,'text-anchor':'middle','font-size':8,fill:'currentColor',opacity:.6}),
+h=el('line',{stroke:'currentColor','stroke-width':3,'stroke-linecap':'round'}),
+m=el('line',{stroke:'currentColor','stroke-width':2,'stroke-linecap':'round'}),
+sc=el('line',{stroke:'#e16259','stroke-width':1});
+el('circle',{r:2.5,fill:'currentColor'});
+const hand=(l,deg,len)=>{const a=deg*Math.PI/180;l.setAttribute('x2',Math.sin(a)*len);l.setAttribute('y2',-Math.cos(a)*len)};
+function tick(){const n=new Date(),S=n.getSeconds()+n.getMilliseconds()/1000,M=n.getMinutes()+S/60,H=n.getHours()%12+M/60;
+hand(h,H*30,45);hand(m,M*6,70);hand(sc,S*6,80);
+t.textContent=n.toLocaleTimeString('fr-FR');
+d.textContent=n.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});
+requestAnimationFrame(tick)}
+tick();
+</script></body></html>
